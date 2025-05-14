@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #ffffff;
+      color: #2575fc;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e0e0e0;
+    }
+
+    #qrcode {
+      margin-top: 20px;
+    }
+
+    .url-text {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #ffffffcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>QR Code Generator</h1>
+    <button onclick="generateQR()">Generate QR</button>
+    <div id="qrcode"></div>
+    <div class="url-text" id="urlDisplay"></div>
+  </div>
+
+  <!-- QRCode.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const urls = [
+      { name: "Amazon", url: "https://www.amazon.com" },
+      { name: "Google", url: "https://www.google.com" },
+      { name: "YouTube", url: "https://www.youtube.com" }
+    ];
+
+    let qrcode;
+
+    function generateQR() {
+      const container = document.getElementById('qrcode');
+      container.innerHTML = ""; // Clear previous QR
+
+      const random = urls[Math.floor(Math.random() * urls.length)];
+
+      qrcode = new QRCode(container, {
+        text: random.url,
+        width: 200,
+        height: 200,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('urlDisplay').innerText = `Link: ${random.name}`;
+    }
+  </script>
+</body>
+</html>
